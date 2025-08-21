@@ -3,7 +3,7 @@ import axios from "axios";
 import multer from "multer";
 
 const ai_router = express.Router();
-const FLASK_SERVER = "http://127.0.0.1:5000"; // Change to your Flask server URL
+const FLASK_SERVER = process.env.AI_SERVER_URL || "http://127.0.0.1:5000"; // Use environment variable
 
 // Configure Multer for handling file uploads
 const storage = multer.memoryStorage();
@@ -26,7 +26,7 @@ ai_router.post("/upload", upload.single("file"), async (req, res) => {
     });
 
     const flaskResponse = await axios.post(
-      "http://127.0.0.1:5000/upload",
+      `${FLASK_SERVER}/upload`,
       formData,
       {
         headers: {

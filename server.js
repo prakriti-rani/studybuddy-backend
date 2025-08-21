@@ -46,7 +46,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     });
 
     const flaskResponse = await axios.post(
-      "http://127.0.0.1:5000/upload",
+      process.env.AI_SERVER_URL || "http://127.0.0.1:5000" + "/upload",
       formData,
       {
         headers: {
